@@ -1,0 +1,278 @@
+#include <iostream>
+#include "graphics.h"
+#include <ctime>
+#include <algorithm>
+using namespace std;
+int pole[4][4];
+IMAGE *img,*img1,*img2,*img3,*img4,*img5,*img6,*img7,*img8,*img9,*img10,*img11,*img12,*img13,*img14,*img15,*img16;
+int cifri=1;
+int x=0,y;
+int i=0;
+int g=0;
+int a=0;
+int b=0;
+int main() {
+   srand(time(0));
+   initwindow(600,600);
+   img=loadBMP("1.JPG");
+   img1=loadBMP("2.JPG");
+   img2=loadBMP("3.JPG");
+   img3=loadBMP("4.JPG");
+   img4=loadBMP("5.JPG");
+   img5=loadBMP("6.JPG");
+   img6=loadBMP("7.JPG");
+   img7=loadBMP("8.JPG");
+   img8=loadBMP("9.JPG");
+   img9=loadBMP("10.JPG");
+   img10=loadBMP("11.JPG");
+   img11=loadBMP("12.JPG");
+   img12=loadBMP("13.JPG");
+   img13=loadBMP("14.JPG");
+   img14=loadBMP("15.JPG");
+   img15=loadBMP("16.JPG");
+   img16=loadBMP("win.JPG");
+   while (cifri!=16) {
+      x=rand()%4;
+      y=rand()%4;
+      if (pole[x][y]==0) {
+         pole[x][y]=cifri;
+
+         cifri++;
+      }
+   }
+   while (1)
+   {
+
+
+      //img15=loadBMP("7.JPG");
+      //cleardevice();
+      for (int i=0; i<4; i++)
+         for (int g=0; g<4; g++) {
+            if (pole[i][g]==1)
+               putimage(i*150,g*150,img,COPY_PUT);
+            else if (pole[i][g]==2)
+               putimage(i*150,g*150,img1,COPY_PUT);
+            else if (pole[i][g]==3)
+               putimage(i*150,g*150,img2,COPY_PUT);
+            else if (pole[i][g]==4)
+               putimage(i*150,g*150,img3,COPY_PUT);
+            else if (pole[i][g]==5)
+               putimage(i*150,g*150,img4,COPY_PUT);
+            else if (pole[i][g]==6)
+               putimage(i*150,g*150,img5,COPY_PUT);
+            else if (pole[i][g]==7)
+               putimage(i*150,g*150,img6,COPY_PUT);
+            else if (pole[i][g]==8)
+               putimage(i*150,g*150,img7,COPY_PUT);
+            else if (pole[i][g]==9)
+               putimage(i*150,g*150,img8,COPY_PUT);
+            else if (pole[i][g]==10)
+               putimage(i*150,g*150,img9,COPY_PUT);
+            else if (pole[i][g]==11)
+               putimage(i*150,g*150,img10,COPY_PUT);
+            else if (pole[i][g]==12)
+               putimage(i*150,g*150,img11,COPY_PUT);
+            else if (pole[i][g]==13)
+               putimage(i*150,g*150,img12,COPY_PUT);
+            else if (pole[i][g]==14)
+               putimage(i*150,g*150,img13,COPY_PUT);
+            else if (pole[i][g]==15)
+               putimage(i*150,g*150,img14,COPY_PUT);
+            else if (pole[i][g]==0)
+               putimage(i*150,g*150,img15,COPY_PUT);
+
+         }
+      //for(){
+      //if
+
+      // }
+      x=mousex();
+      y=mousey();
+      x=(x)/150;
+      y=(y)/150;
+      //cout<<x<<" "<<y<<endl;
+      if (mousebuttons()==1) {
+         for (int i = 0; i < 4; i++) {
+            for (int g = 0; g < 4; g++) {
+               cout << pole[i][g]<<" ";
+
+            }
+            cout<<endl;
+         }
+         if (x>3)x=3;
+         if (y>3)y=3;
+         if (x<0)x=0;
+         if (y<0)y=0;
+         //cout<<pole[0][1];
+         if (pole[x][y]!=0) {
+            if (x==0 && y==0) {
+               if (pole[x+1][y]==0) { //ПРИМЕР С КРУЖКАМИ
+                  //cout<<pole[x][y]<<pole[x+1][y];
+                  swap(pole[x][y],pole[x+1][y]);
+
+                  //cout<<pole[x][y]<<pole[x+1][y];
+               }
+               if (pole[x][y+1]==0) {
+                  //cout<<pole[x][y]<<pole[x][y+1];
+                  swap(pole[x][y],pole[x][y+1]);
+                  //cout<<pole[x][y]<<pole[x][y+1];
+               }
+            }
+            if (x==3 && y==0) {
+               if (pole[x-1][y]==0) {
+                  swap(pole[x][y],pole[x-1][y]);
+               }
+               if (pole[x][y+1]==0) {
+                  swap(pole[x][y],pole[x][y+1]);
+               }
+
+            }
+            if (x==3 && y==3) {
+               if (pole[x-1][y]==0) {
+                  swap(pole[x][y],pole[x-1][y]);
+               }
+               if (pole[x][y-1]==0) {
+                  swap(pole[x][y],pole[x][y-1]);
+               }
+            }
+            if (x==0 && y==3) {
+               if (pole[x+1][y]==0) {
+                  swap(pole[x][y],pole[x+1][y]);
+               }
+               if (pole[x][y-1]==0) {
+                  swap(pole[x][y],pole[x][y-1]);
+               }
+            }
+            if (x==0 && y==1) {                 //надо поработать с левой стороной(сразу сравнить с другими клетками)
+               if (pole[x+1][y]==0) {
+                  swap(pole[x][y],pole[x+1][y]);
+               }
+               if (pole[x][y-1]==0) {
+                  swap(pole[x][y],pole[x][y-1]);
+               }
+               if (pole[x][y+1]==0) {
+                  swap(pole[x][y],pole[x][y+1]);
+               }
+            }
+            if (x==0 && y==2) {
+               if (pole[x][y+1]==0) {
+                  swap(pole[x][y],pole[x][y+1]);
+               }
+               if (pole[x][y-1]==0) {
+                  swap(pole[x][y],pole[x][y-1]);
+               }
+               if (pole[x+1][y]==0) {
+                  swap(pole[x][y],pole[x+1][y]);
+               }
+            }
+            if (x==1 && y==0) {
+               if (pole[x+1][y]==0) {
+                  swap(pole[x][y],pole[x+1][y]);
+               }
+               if (pole[x-1][y]==0) {
+                  swap(pole[x][y],pole[x-1][y]);
+               }
+               if (pole[x][y+1]==0) {
+                  swap(pole[x][y],pole[x][y+1]);
+               }
+            }
+            if (x==2 && y==0) {
+               if (pole[x+1][y]==0) {
+                  swap(pole[x][y],pole[x+1][y]);
+               }
+               if (pole[x-1][y]==0) {
+                  swap(pole[x][y],pole[x-1][y]);
+               }
+               if (pole[x][y+1]==0) {
+                  swap(pole[x][y],pole[x][y+1]);
+               }
+            }
+            if (x==3 && y==1) {
+               if (pole[x-1][y]==0) {
+                  swap(pole[x][y],pole[x-1][y]);
+               }
+               if (pole[x][y-1]==0) {
+                  swap(pole[x][y],pole[x][y-1]);
+               }
+               if (pole[x][y+1]==0) {
+                  swap(pole[x][y],pole[x][y+1]);
+               }
+            }
+            if (x==3 && y==2) {
+               if (pole[x][y+1]==0) {
+                  swap(pole[x][y],pole[x][y+1]);
+               }
+
+               if (pole[x-1][y]==0) {
+                  swap(pole[x][y],pole[x-1][y]);
+               }
+               if (pole[x][y-1]==0) {
+                  swap(pole[x][y],pole[x][y-1]);
+               }
+            }
+            if (x==1 && y==3) {
+               if (pole[x-1][y]==0) {
+                  swap(pole[x][y],pole[x-1][y]);
+               }
+               if (pole[x+1][y]==0) {
+                  swap(pole[x][y],pole[x+1][y]);
+               }
+               if (pole[x][y-1]==0) {
+                  swap(pole[x][y],pole[x][y-1]);
+               }
+            }
+            if (x==2 && y==3) {
+               if (pole[x-1][y]==0) {
+                  swap(pole[x][y],pole[x-1][y]);
+               }
+               if (pole[x+1][y]==0) {
+                  swap(pole[x][y],pole[x+1][y]);
+               }
+               if (pole[x][y-1]==0) {
+                  swap(pole[x][y],pole[x][y-1]);
+               }
+            }
+
+            for (i=1; i<3; i++) { //  цикл доделать
+               for (g=1; g<3; g++) {
+                  if (i==x && g==y) {
+                     if (pole[x+1][y]==0) {
+                        swap(pole[x][y],pole[x+1][y]);
+                     }
+                     if (pole[x-1][y]==0) {
+                        swap(pole[x][y],pole[x-1][y]);
+                     }
+                     if (pole[x][y-1]==0) {
+                        swap(pole[x][y],pole[x][y-1]);
+                     }
+                     if (pole[x][y+1]==0) {
+                        swap(pole[x][y],pole[x][y+1]);
+                     }
+                  }
+               }
+            }
+         }
+      }
+      b=1;
+      for (i=0; i<4; i++) {
+         for (g=0; g<4; g++) {
+            cout<<pole[g][i]<<" ";
+            if (pole[g][i]==b) 
+               b++;
+               if (b==14) {
+                  putimage(i,g,img16,COPY_PUT);
+                  getch();
+                  return 0;
+               }
+            
+         }
+      }
+      cout<<endl<<b;
+      cout<<endl;
+   }
+
+
+   while (1);
+   closegraph();
+   return 0;
+}
